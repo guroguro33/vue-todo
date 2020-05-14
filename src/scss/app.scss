@@ -1,0 +1,249 @@
+@charset "utf-8";
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+  box-sizing: border-box;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+// ==============================
+// ブレイクポイント
+// ==============================
+$breakpoints: (
+  'sm': 'screen and (max-width: 480px)',
+  'md': 'screen and (max-width: 896px)',
+  'lg': 'screen and (max-width: 1024px)',
+  'xl': 'screen and (max-width: 1200px)',
+) !default;
+
+@mixin mq($breakpoint: sm){
+  @media #{map-get($breakpoints, $breakpoint)}{
+    @content;
+  }
+}
+
+// ==============================
+// 変数
+// ==============================
+$font-color_default: #333;
+$color_bg: #E7E7E7;
+$color_bar: #707070;
+$color_w: #FFFFFF;
+
+$font-size_s: 12px;
+$font-size_m: 14px;
+$font-size_default: 16px;
+$font-size_l: 20px;
+$font-size_xl: 24px;
+$font-size_xxl: 30px;
+$font-size_3l: 36px;
+$font-size_4l: 38px;
+
+$space_s: 5px;
+$space_m: 10px;
+$space_l: 15px;
+$space_xl: 20px;
+$space_xxl: 30px;
+$space_3l: 40px;
+$space_4l: 60px;
+
+$font-family_main: 'Noto Sans JP', 游ゴシック体, "Yu Gothic", YuGothic, "ヒラギノ角ゴシック Pro", "Hiragino Kaku Gothic Pro", メイリオ, Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+
+// ==================================
+// base
+// ==================================
+html, body {
+  width: 100%;
+  background-color: $color_bg;
+  text-align: center;
+  line-height: 1.6;
+  letter-spacing: 0.1em;
+  color: $font-color_default;
+  font-size: $font-size_default;
+  font-family: $font-family_main;
+  text-size-adjust: 100%;
+}
+
+p, a {
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  display: block;
+  color: $font-color_default;
+  text-decoration: none;
+  transition: .3s;
+}
+
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+.bg-w{
+  background-color: $color_w;
+}
+
+// ==================================
+// title
+// ==================================
+.main{
+  width: 450px;
+  margin: 100px auto;
+  @include mq(){
+    width: calc(100% - 30px);
+    margin: 50px 15px;
+  }
+}
+.main-title{
+  margin-bottom: $space_xxl;
+  font-size: $font-size_xxl;
+  font-weight: 800;
+}
+
+// ==================================
+// search
+// ==================================
+.search{
+  display: flex;
+  margin: 0 auto $space_xxl;
+  padding: 0 $space_m;
+  width: 100%;
+  height: 40px;
+  align-items: center;
+  border-radius: 15px;
+  text-align: left;
+  &-icon{
+    width: 30px;
+    height: 30px;
+    opacity: .5;
+  }
+  &-box{
+    padding: 5px 10px;
+    width: 100%;
+    border: none;
+    font-size: $font-size_default;
+    &::placeholder{
+      font-family: $font-family_main;
+    }
+  }
+}
+
+// ==================================
+// list
+// ==================================
+.list{
+  margin-bottom: $space_4l;
+  text-align: left;
+}
+.list-item{
+  display: flex;
+  margin-bottom: $space_m;
+  padding: 5px 10px;
+  width: 100%;
+  height: 40px;
+  .icon-check{
+    width: 30px;
+    height: 30px;
+    opacity: .5;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  .list-text{
+    padding: 0 10px;
+    flex-grow: 2;
+    text-align: left;
+  }
+  .trash{
+    width: 25px;
+    height: 25px;
+    opacity: .5;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+.list-add{
+  margin: 0 auto;
+  padding: 5px 10px;
+  width: 90%;
+  border: none;
+  font-size: 16px;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+.add:hover{
+  cursor: pointer;
+}
+.icon-add{
+  margin-right: $space_m;
+  width: 30px;
+  height: 30px;
+  opacity: .5;
+}
+
+// ==================================
+// list-done
+// ==================================
+.list-done{
+  border-top: 1px solid #333;
+}
+.done-title{
+  margin: $space_xxl 0;
+  font-size: $font-size_l;
+  font-weight: 700;
+}
+.bg-done{
+  background-color: #C8C8C8;
+}
+.text-done{
+  color: #808080;
+  text-decoration: line-through;
+}

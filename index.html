@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="ポートフォリオサイト">
+  <!-- Twitterカード -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@guroguro33" />
+  <meta property="og:url" content="" />
+  <meta property="og:title" content="ToDoリスト" />
+  <meta property="og:description" content="vueを使ったシンプルなtodoリスト" />
+  <meta property="og:image" content="" />
+  <!-- googleフォント -->
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <title>ToDoリスト</title>
+  <link rel="stylesheet" href="dist/css/app.css">
+</head>
+<body>
+
+  <div class="main">
+    <h1 class="main-title">ToDoリスト</h1>
+
+    <div class="search bg-w">
+      <img src="./img/search.svg" class="search-icon">
+      <input type="text" name="search" class="search-box" placeholder="検索">
+    </div>
+
+    <div class="list">
+      <ul class="list-body">
+        <li class="list-item bg-w">
+          <img src="img/check_box_before.svg" class="icon-check">
+          <span class="list-text">テキストテキスト</span>
+          <img src="./img/delete.svg" class="trash">
+        </li>
+        <li class="list-item bg-w">
+          <img src="img/check_box_before.svg" class="icon-check">
+          <span class="list-text">テキストテキスト</span>
+          <img src="./img/delete.svg" class="trash">
+        </li>
+        
+        <li class="list-item bg-w">
+          <input type="text" name="list-text" class="list-add">
+        </li>
+
+        <li class="list-item add">
+          <img src="img/add.svg" class="icon-add">
+          <span>リストを追加</span>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="list-done">
+      <h2 class="done-title">完了リスト</h2>
+      <ul>
+        <li class="list-item bg-done">
+          <img src="img/check_box-after.svg" class="icon-check">
+          <span class="list-text text-done">テキストテキスト</span>
+          <img src="./img/delete.svg" class="trash">
+        </li>
+        <li class="list-item bg-done">
+          <img src="img/check_box-after.svg" class="icon-check">
+          <span class="list-text text-done">テキストテキスト</span>
+          <img src="./img/delete.svg" class="trash">
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+<script src="dist/js/bundle.js"></script>
+</body>
+</html>
