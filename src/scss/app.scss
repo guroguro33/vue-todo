@@ -167,9 +167,11 @@ img {
     padding: 5px 10px;
     width: 100%;
     border: none;
-    font-size: $font-size_default;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
     &::placeholder{
-      font-family: $font-family_main;
+      font-family: inherit;
     }
   }
 }
