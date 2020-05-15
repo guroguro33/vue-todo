@@ -301,8 +301,22 @@ var _vueLs2 = _interopRequireDefault(_vueLs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Storage = window.VueStorage;
-_vue2.default.use(Storage);
+_vue2.default.use(_vueLs2.default);
+
+_vue2.default.component('search', {
+  props: '',
+  data: function data() {
+    return {
+      word: ''
+    };
+  },
+  template: '\n    <div class="search bg-w">\n      <img src="./img/search.svg" class="search-icon">\n      <input type="text" class="search-box" placeholder="\u691C\u7D22" autocomplete="off" @keyup="sendWord" v-model="word">\n    </div>\n  ',
+  methods: {
+    sendWord: function sendWord() {
+      this.$parent.searchWord = this.word;
+    }
+  }
+});
 
 new _vue2.default({
   el: '#app',

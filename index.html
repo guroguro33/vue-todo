@@ -23,10 +23,7 @@
   <div class="main" id="app">
     <h1 class="main-title">ToDoリスト</h1>
 
-    <div class="search bg-w">
-      <img src="./img/search.svg" class="search-icon">
-      <input type="text" name="search" class="search-box" placeholder="検索" autocomplete="off" v-model="searchWord">
-    </div>
+    <search></search>
 
     <div class="list">
       <draggable tag="ul" v-bind="{animation:500, handle:'.list-text'}" v-model="lists">

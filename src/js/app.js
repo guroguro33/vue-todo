@@ -2,8 +2,27 @@ import Vue from 'vue';
 import draggable from 'vuedraggable';
 import VueLocalStorage from 'vue-ls'; 
 
-const Storage = window.VueStorage;
-Vue.use(Storage);
+Vue.use(VueLocalStorage);
+
+Vue.component('search', {
+  props: '',
+  data: function() {
+    return {
+      word: ''
+    }
+  },
+  template: `
+    <div class="search bg-w">
+      <img src="./img/search.svg" class="search-icon">
+      <input type="text" class="search-box" placeholder="検索" autocomplete="off" @keyup="sendWord" v-model="word">
+    </div>
+  `,
+  methods: {
+    sendWord() {
+      this.$parent.searchWord = this.word;
+    }
+  }
+})
 
 new Vue({
   el: '#app',
@@ -87,7 +106,15 @@ new Vue({
     // 完了と未完了切替
     toggleDone(list) {
       list.isDone = !list.isDone;
-    }
+    },
+    // searchLists(word) {
+    //   console.log(word);
+    //   this.searchWord = word;
+    //   return this.lists.filter( (elm) =>{
+    //     let regexp = new RegExp('^' + this.searchWord, 'i');
+    //     return elm.text.match(regexp);
+    //   })
+    // }
   },
   computed: {
     // 検索してリストを生成
