@@ -124,6 +124,10 @@ img {
   width: 100%;
   vertical-align: bottom;
 }
+input{
+  font-size: inherit;
+  font-family: inherit;
+}
 
 .bg-w{
   background-color: $color_w;
@@ -167,8 +171,6 @@ img {
     padding: 5px 10px;
     width: 100%;
     border: none;
-    font-size: inherit;
-    font-family: inherit;
     color: inherit;
     &::placeholder{
       font-family: inherit;

@@ -297,15 +297,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var STORAGE_KEY = 'vue-todo';
 var todoStorage = {
   fetch: function fetch() {
-    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    todos.forEach(function (todo, index) {
-      todo.id = index;
+    var lists = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    lists.forEach(function (list, index) {
+      list.id = index;
     });
-    todoStorage.uid = todos.length;
-    return todos;
+    todoStorage.uid = lists.length;
+    return lists;
   },
-  save: function save(todos) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  save: function save(lists) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
   }
 };
 
@@ -314,17 +314,17 @@ new _vue2.default({
   data: {
     lists: [{
       id: 1,
-      text: 'テキストテキスト１',
+      text: 'タスク１',
       isDone: false,
       editMode: false
     }, {
       id: 2,
-      text: 'テキストテキスト２',
+      text: 'タスク２',
       isDone: true,
       editMode: false
     }, {
       id: 3,
-      text: 'テキストテキスト３',
+      text: 'タスク３',
       isDone: false,
       editMode: false
     }],
@@ -339,7 +339,7 @@ new _vue2.default({
     },
 
     // リスト追加
-    addList: function addList(e) {
+    addList: function addList() {
       // 入力したリストの要素を取得
       var text = this.$refs.text;
       // 空欄の時は何もしない
@@ -364,6 +364,11 @@ new _vue2.default({
     rmList: function rmList(list) {
       var index = this.lists.indexOf(list);
       this.lists.splice(index, 1);
+    },
+
+    // リスト編集モードの切替
+    toggleEditMode: function toggleEditMode(list) {
+      list.editMode = !list.editMode;
     },
 
     // 完了と未完了切替

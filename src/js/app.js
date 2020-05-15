@@ -4,17 +4,17 @@ import Vue from 'vue';
 var STORAGE_KEY = 'vue-todo'
 var todoStorage = {
   fetch: function() {
-    var todos = JSON.parse(
+    let lists = JSON.parse(
       localStorage.getItem(STORAGE_KEY) || '[]'
     )
-    todos.forEach(function(todo, index) {
-      todo.id = index
+    lists.forEach(function(list, index) {
+      list.id = index
     })
-    todoStorage.uid = todos.length
-    return todos
+    todoStorage.uid = lists.length
+    return lists
   },
-  save: function(todos) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+  save: function(lists) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(lists))
   }
 }
 
@@ -24,19 +24,19 @@ new Vue({
     lists : [
       {
         id: 1,
-        text: 'テキストテキスト１',
+        text: 'タスク１',
         isDone: false,
         editMode: false
       },
       {
         id: 2,
-        text: 'テキストテキスト２',
+        text: 'タスク２',
         isDone: true,
         editMode: false
       },
       {
         id: 3,
-        text: 'テキストテキスト３',
+        text: 'タスク３',
         isDone: false,
         editMode: false
       }
@@ -51,7 +51,7 @@ new Vue({
       this.isShowAdd = !this.isShowAdd;
     },
     // リスト追加
-    addList(e) {
+    addList() {
       // 入力したリストの要素を取得
       let text = this.$refs.text
       // 空欄の時は何もしない
@@ -75,7 +75,10 @@ new Vue({
     rmList(list) {
       let index = this.lists.indexOf(list);
       this.lists.splice(index, 1);
-
+    },
+    // リスト編集モードの切替
+    toggleEditMode(list) {
+      list.editMode = !list.editMode;
     },
     // 完了と未完了切替
     toggleDone(list) {

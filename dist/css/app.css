@@ -83,6 +83,11 @@ img {
   vertical-align: bottom;
 }
 
+input {
+  font-size: inherit;
+  font-family: inherit;
+}
+
 .bg-w {
   background-color: #FFFFFF;
 }
@@ -126,8 +131,6 @@ img {
   padding: 5px 10px;
   width: 100%;
   border: none;
-  font-size: inherit;
-  font-family: inherit;
   color: inherit;
 }
 

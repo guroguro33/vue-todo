@@ -32,13 +32,14 @@
       <ul>
         <li class="list-item bg-w" v-for="list in searchLists"  v-if="!list.isDone">
           <img src="img/check_box_before.svg" class="icon-check" v-on:click="toggleDone(list)">
-          <span class="list-text">{{ list.text }}</span>
+          <span class="list-text" @click="toggleEditMode(list)" v-if="!list.editMode">{{ list.text }}</span>
+          <input type="text" class="list-text" v-model="list.text" @keyup.enter="toggleEditMode(list)" v-if="list.editMode">
           <img src="./img/delete.svg" class="trash" v-on:click="rmList(list)">
         </li>
         
         <!-- todo:コンポーネント化した際にmountedメソッドで、初期フォーカスを与える -->
         <li class="list-item bg-w" v-if="isShowAdd">
-          <input type="text" name="list-text" class="list-add" ref="text" v-on:keyup.enter="addList">
+          <input type="text" name="list-text" class="list-add" placeholder="タスクを入力してください" ref="text" v-on:keyup.enter="addList" autofocus>
         </li>
 
         <li class="list-item add" v-on:click="showAdd">
