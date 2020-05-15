@@ -11,7 +11,9 @@
   "dependencies": {
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "vue": "^2.5.11"
+    "vue": "^2.5.11",
+    "vue-ls": "^3.2.1",
+    "vuedraggable": "^2.23.2"
   },
   "devDependencies": {
     "babel": "^6.23.0",

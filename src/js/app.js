@@ -1,25 +1,15 @@
 import Vue from 'vue';
+import draggable from 'vuedraggable';
+import VueLocalStorage from 'vue-ls'; 
 
-// https://jp.vuejs.org/v2/examples/todomvc.html
-var STORAGE_KEY = 'vue-todo'
-var todoStorage = {
-  fetch: function() {
-    let lists = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || '[]'
-    )
-    lists.forEach(function(list, index) {
-      list.id = index
-    })
-    todoStorage.uid = lists.length
-    return lists
-  },
-  save: function(lists) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(lists))
-  }
-}
+const Storage = window.VueStorage;
+Vue.use(Storage);
 
 new Vue({
   el: '#app',
+  components: {
+    'draggable': draggable
+  },
   data: {
     lists : [
       {
@@ -31,7 +21,7 @@ new Vue({
       {
         id: 2,
         text: 'タスク２',
-        isDone: true,
+        isDone: false,
         editMode: false
       },
       {
@@ -45,6 +35,12 @@ new Vue({
     searchWord: '',
 
   },
+  // 保存データがある場合は、最初に読み込む
+  beforeMount: function(){
+    if(Vue.ls.get('lsValue')){
+      this.lists = JSON.parse(Vue.ls.get('lsValue'));
+    }
+  },
   methods: {
     // 入力欄表示
     showAdd() {
@@ -53,7 +49,9 @@ new Vue({
     // リスト追加
     addList() {
       // 入力したリストの要素を取得
-      let text = this.$refs.text
+      let text = this.$refs.text;
+      // 初めの数値
+      let nextId = this.lists.length;
       // 空欄の時は何もしない
       if(!text.value){
         return;
@@ -61,7 +59,7 @@ new Vue({
 
       // データを追加
       this.lists.push({
-        id: todoStorage.uid++,
+        id: ++nextId,
         text: text.value,
         isDone: false,
         editMode: false
@@ -86,6 +84,7 @@ new Vue({
     }
   },
   computed: {
+    // 検索してリストを生成
     searchLists() {
       return this.lists.filter( (elm) =>{
         let regexp = new RegExp('^' + this.searchWord, 'i');
@@ -97,14 +96,10 @@ new Vue({
     lists: {
       // 引数はウォッチしているプロパティの変更後の値
       handler(lists) {
-        todoStorage.save(lists)
+      Vue.ls.set('lsValue', JSON.stringify(lists), 60 * 60 * 1000);
       },
       // deepオプションでネストしているデータも監視できる
       deep: true
-    },
-  },
-  created() {
-    // インスタンス生成時に自動的にfetchする
-    this.lists = todoStorage.fetch();
+    }
   },
 })

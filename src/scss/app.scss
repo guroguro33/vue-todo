@@ -191,12 +191,15 @@ input{
   padding: 5px 10px;
   width: 100%;
   height: 40px;
+  cursor: pointer;
   .icon-check{
     width: 30px;
     height: 30px;
     opacity: .5;
+    transition: .5s ease;
     &:hover{
       cursor: pointer;
+      transform: scale(1.2);
     }
   }
   .list-text{
@@ -210,6 +213,7 @@ input{
     opacity: .5;
     &:hover{
       cursor: pointer;
+      transform: scale(1.2);
     }
   }
 }
@@ -251,3 +255,42 @@ input{
   color: #808080;
   text-decoration: line-through;
 }
+
+// ==================================
+// animation
+// ==================================
+@keyframes slide-in{
+  0% {
+    transform: translateX(10px);
+  }
+  // 10% {
+  //   transform: translateX(20%);
+  // }
+  100% {
+    transform: translateX(0);
+  }
+}
+.slideIn-enter-active{
+  animation: slide-in .5s; 
+  // overflow: hidden;
+} 
+
+@keyframes slide-up{
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.list-animation-enter-active{
+  animation: slide-up .5s;
+}
+
+.list-animation-leave-active{
+  transition: opacity .5s;
+}
+.list-animation-leave-to{
+  opacity: 0;
+}
+
