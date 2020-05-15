@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="ポートフォリオサイト">
+  <meta name="description" content="vue.jsを使ったTODOリスト">
   <!-- Twitterカード -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@guroguro33" />
-  <meta property="og:url" content="" />
+  <meta property="og:url" content="https://kurosuke-web.com/todo/" />
   <meta property="og:title" content="ToDoリスト" />
   <meta property="og:description" content="vueを使ったシンプルなtodoリスト" />
-  <meta property="og:image" content="" />
+  <meta property="og:image" content="https://kurosuke-web.com/todo/twitter-card.jpg" />
   <!-- googleフォント -->
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
 
   <title>ToDoリスト</title>
   <link rel="stylesheet" href="dist/css/app.css">
@@ -29,7 +29,7 @@
     </div>
 
     <div class="list">
-      <draggable tag="ul" v-bind="{animation:500}" v-model="lists">
+      <draggable tag="ul" v-bind="{animation:500, handle:'.list-text'}" v-model="lists">
         <transition-group name="list-animation">
           <li class="list-item bg-w" v-for="list in searchLists" :key="list.id"  v-if="!list.isDone">
             <img src="img/check_box_before.svg" class="icon-check" v-on:click="toggleDone(list)">
@@ -54,7 +54,7 @@
     
     <div class="list-done">
       <h2 class="done-title">完了リスト</h2>
-      <draggable tag="ul" v-bind="{animation:500}" v-model="lists">
+      <draggable tag="ul" v-bind="{animation:500, handle:'.list-text'}" v-model="lists">
         <li class="list-item bg-done" v-for="list in searchLists" :key="list.id" v-if="list.isDone">
           <img src="img/check_box-after.svg" class="icon-check" v-on:click="toggleDone(list)">
           <span class="list-text text-done">{{ list.text }}</span>

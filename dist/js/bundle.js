@@ -325,6 +325,11 @@ new _vue2.default({
       text: 'タスク３',
       isDone: false,
       editMode: false
+    }, {
+      id: 4,
+      text: 'タスク４',
+      isDone: true,
+      editMode: false
     }],
     isShowAdd: false,
     searchWord: ''
