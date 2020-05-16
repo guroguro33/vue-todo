@@ -26,37 +26,23 @@
     <search></search>
 
     <div class="list">
+
       <draggable tag="ul" v-bind="{animation:500, handle:'.list-text'}" v-model="lists">
         <transition-group name="list-animation">
-          <li class="list-item bg-w" v-for="list in searchLists" :key="list.id"  v-if="!list.isDone">
-            <img src="img/check_box_before.svg" class="icon-check" v-on:click="toggleDone(list)">
-            <span class="list-text" @click="toggleEditMode(list)" v-if="!list.editMode">{{ list.text }}</span>
-            <input type="text" class="list-text" v-model="list.text" @keyup.enter="toggleEditMode(list)" v-if="list.editMode">
-            <img src="./img/delete.svg" class="trash" v-on:click="rmList(list)">
-          </li>
+          <list-item v-for="list in searchLists" :key="list.id" :list="list" v-if="!list.isDone" @toggle-done="toggleDone" @toggle-edit="toggleEditMode" @rm-list="rmList"></list-item>
         </transition-group>
-        </draggable>
+      </draggable>
         
-        <transition name="slideIn">
-          <li class="list-item bg-w" v-if="isShowAdd">
-            <input type="text" name="list-text" class="list-add" placeholder="タスクを入力してください" ref="text" v-on:keyup.enter="addList" autofocus>
-          </li>
-        </transition>
+      <list-add v-if="isShowAdd" @add-list="addList"></list-add>
 
-        <li class="list-item add" v-on:click="showAdd">
-          <img src="img/add.svg" class="icon-add">
-          <span>リストを追加</span>
-        </li>
+      <toggle-add @show-add="showAdd"></toggle-add>
+
     </div>
     
     <div class="list-done">
       <h2 class="done-title">完了リスト</h2>
       <draggable tag="ul" v-bind="{animation:500, handle:'.list-text'}" v-model="lists">
-        <li class="list-item bg-done" v-for="list in searchLists" :key="list.id" v-if="list.isDone">
-          <img src="img/check_box-after.svg" class="icon-check" v-on:click="toggleDone(list)">
-          <span class="list-text text-done">{{ list.text }}</span>
-          <img src="./img/delete.svg" class="trash" v-on:click="rmList(list)">
-        </li>
+        <list-item v-for="list in searchLists" :key="list.id" :list="list" v-if="list.isDone" @toggle-done="toggleDone" @toggle-edit="toggleEditMode" @rm-list="rmList"></list-item>
       </draggable>
     </div>
 

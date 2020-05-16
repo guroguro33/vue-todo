@@ -24,6 +24,67 @@ Vue.component('search', {
   }
 })
 
+Vue.component('list-item', {
+  props: ['list'],
+  template: `
+    <li class="list-item bg-w" v-if="!list.isDone">
+      <img src="img/check_box_before.svg" class="icon-check" v-on:click="onToggleDone">
+      <span class="list-text" @click="onToggleEdit" v-if="!list.editMode">{{ list.text }}</span>
+      <input type="text" class="list-text" v-model="list.text" @keyup.enter="onToggleEdit" v-if="list.editMode">
+      <img src="./img/delete.svg" class="trash" v-on:click="onRmList">
+    </li>
+
+    <li class="list-item bg-done" v-else>
+      <img src="img/check_box-after.svg" class="icon-check" v-on:click="onToggleDone">
+      <span class="list-text text-done" @click="onToggleEdit" v-if="!list.editMode">{{ list.text }}</span>
+      <input type="text" class="list-text" v-model="list.text" @keyup.enter="onToggleEdit" v-if="list.editMode">
+      <img src="./img/delete.svg" class="trash" v-on:click="onRmList">
+    </li>
+
+  `,
+  methods: {
+    onToggleDone() {
+      this.$emit('toggle-done', this.list)
+    },
+    onToggleEdit() {
+      this.$emit('toggle-edit', this.list)
+    },
+    onRmList() {
+      this.$emit('rm-list', this.list)
+    }
+  }
+})
+
+Vue.component('list-add', {
+  template: `
+    <transition name="slideIn">
+      <li class="list-item bg-w">
+        <input type="text" class="list-add" placeholder="タスクを入力してください" ref="text" v-on:keyup.enter="onAddList" autofocus>
+      </li>
+    </transition>
+  `,
+  methods: {
+    onAddList() {
+      this.$emit('add-list', this.$refs.text)
+    }
+  }
+})
+
+Vue.component('toggle-add', {
+  template: `
+    <li class="list-item add" v-on:click="onShowAdd">
+      <img src="img/add.svg" class="icon-add">
+      <span>リストを追加</span>
+    </li>
+  `,
+  methods: {
+    onShowAdd() {
+      this.$emit('show-add');
+    }
+  }
+})
+
+
 new Vue({
   el: '#app',
   components: {
@@ -72,9 +133,9 @@ new Vue({
       this.isShowAdd = !this.isShowAdd;
     },
     // リスト追加
-    addList() {
+    addList(e) {
       // 入力したリストの要素を取得
-      let text = this.$refs.text;
+      let text = e;
       // 初めの数値
       let nextId = this.lists.length;
       // 空欄の時は何もしない
@@ -107,14 +168,6 @@ new Vue({
     toggleDone(list) {
       list.isDone = !list.isDone;
     },
-    // searchLists(word) {
-    //   console.log(word);
-    //   this.searchWord = word;
-    //   return this.lists.filter( (elm) =>{
-    //     let regexp = new RegExp('^' + this.searchWord, 'i');
-    //     return elm.text.match(regexp);
-    //   })
-    // }
   },
   computed: {
     // 検索してリストを生成

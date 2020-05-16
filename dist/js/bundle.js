@@ -318,6 +318,40 @@ _vue2.default.component('search', {
   }
 });
 
+_vue2.default.component('list-item', {
+  props: ['list'],
+  template: '\n    <li class="list-item bg-w" v-if="!list.isDone">\n      <img src="img/check_box_before.svg" class="icon-check" v-on:click="onToggleDone">\n      <span class="list-text" @click="onToggleEdit" v-if="!list.editMode">{{ list.text }}</span>\n      <input type="text" class="list-text" v-model="list.text" @keyup.enter="onToggleEdit" v-if="list.editMode">\n      <img src="./img/delete.svg" class="trash" v-on:click="onRmList">\n    </li>\n\n    <li class="list-item bg-done" v-else>\n      <img src="img/check_box-after.svg" class="icon-check" v-on:click="onToggleDone">\n      <span class="list-text text-done" @click="onToggleEdit" v-if="!list.editMode">{{ list.text }}</span>\n      <input type="text" class="list-text" v-model="list.text" @keyup.enter="onToggleEdit" v-if="list.editMode">\n      <img src="./img/delete.svg" class="trash" v-on:click="onRmList">\n    </li>\n\n  ',
+  methods: {
+    onToggleDone: function onToggleDone() {
+      this.$emit('toggle-done', this.list);
+    },
+    onToggleEdit: function onToggleEdit() {
+      this.$emit('toggle-edit', this.list);
+    },
+    onRmList: function onRmList() {
+      this.$emit('rm-list', this.list);
+    }
+  }
+});
+
+_vue2.default.component('list-add', {
+  template: '\n    <transition name="slideIn">\n      <li class="list-item bg-w">\n        <input type="text" class="list-add" placeholder="\u30BF\u30B9\u30AF\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044" ref="text" v-on:keyup.enter="onAddList" autofocus>\n      </li>\n    </transition>\n  ',
+  methods: {
+    onAddList: function onAddList() {
+      this.$emit('add-list', this.$refs.text);
+    }
+  }
+});
+
+_vue2.default.component('toggle-add', {
+  template: '\n    <li class="list-item add" v-on:click="onShowAdd">\n      <img src="img/add.svg" class="icon-add">\n      <span>\u30EA\u30B9\u30C8\u3092\u8FFD\u52A0</span>\n    </li>\n  ',
+  methods: {
+    onShowAdd: function onShowAdd() {
+      this.$emit('show-add');
+    }
+  }
+});
+
 new _vue2.default({
   el: '#app',
   components: {
@@ -362,9 +396,9 @@ new _vue2.default({
     },
 
     // リスト追加
-    addList: function addList() {
+    addList: function addList(e) {
       // 入力したリストの要素を取得
-      var text = this.$refs.text;
+      var text = e;
       // 初めの数値
       var nextId = this.lists.length;
       // 空欄の時は何もしない
