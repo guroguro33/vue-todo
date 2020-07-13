@@ -301,6 +301,7 @@ var _vueLs2 = _interopRequireDefault(_vueLs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+_vue2.default.config.productionTip = false;
 _vue2.default.use(_vueLs2.default);
 
 _vue2.default.component('search', {

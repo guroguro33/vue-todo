@@ -2,6 +2,7 @@ import Vue from 'vue';
 import draggable from 'vuedraggable';
 import VueLocalStorage from 'vue-ls'; 
 
+Vue.config.productionTip = false;
 Vue.use(VueLocalStorage);
 
 Vue.component('search', {
